@@ -9,4 +9,6 @@ RUN apt update \
 && ./install \
 && cp ../tests/_ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
 && cd ../../ \
-&& rm -r cphalcon
+&& rm -r cphalcon \
+&& pecl install swoole \
+&& docker-php-ext-enable swoole

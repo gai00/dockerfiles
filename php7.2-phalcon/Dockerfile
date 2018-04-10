@@ -3,7 +3,7 @@ FROM php:7.2-fpm
 # fork from phalconphp/php-fpm:7.2-min
 
 RUN apt update \
-&& apt install -y git \
+&& apt install -y git zip \
 && git clone --depth=1 "git://github.com/phalcon/cphalcon.git" \
 && cd cphalcon/build \
 && ./install \

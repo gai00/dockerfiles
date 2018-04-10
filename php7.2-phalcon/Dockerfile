@@ -11,4 +11,5 @@ RUN apt update \
 && cd ../../ \
 && rm -r cphalcon \
 && pecl install swoole-2.1.1 mongodb\
-&& docker-php-ext-enable swoole mongodb
+&& docker-php-ext-enable swoole mongodb \
+&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

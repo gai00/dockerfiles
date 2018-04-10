@@ -10,5 +10,5 @@ RUN apt update \
 && cp ../tests/_ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
 && cd ../../ \
 && rm -r cphalcon \
-&& pecl install swoole-2.1.1 \
-&& docker-php-ext-enable swoole
+&& pecl install swoole-2.1.1 mongodb\
+&& docker-php-ext-enable swoole mongodb

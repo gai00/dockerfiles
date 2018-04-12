@@ -13,3 +13,8 @@ RUN apt update \
 && pecl install swoole-2.1.1 mongodb\
 && docker-php-ext-enable swoole mongodb \
 && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+#add docker-machine
+RUN base=https://github.com/docker/machine/releases/download/v0.14.0 \
+&& curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine \
+&& install /tmp/docker-machine /usr/local/bin/docker-machine

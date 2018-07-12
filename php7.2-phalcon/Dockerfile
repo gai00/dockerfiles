@@ -2,7 +2,7 @@ FROM php:7.2-fpm
 
 # fork from phalconphp/php-fpm:7.2-min
 
-ENV SWOOLE_VERSION=2.1.3
+ENV SWOOLE_VERSION=4.0.1
 #add docker-machine
 ENV DOCKER_MACHINE_VERSION=0.14.0
 

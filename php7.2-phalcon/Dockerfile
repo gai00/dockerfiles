@@ -2,9 +2,9 @@ FROM php:7.2-fpm
 
 # fork from phalconphp/php-fpm:7.2-min
 
-ENV SWOOLE_VERSION=4.1.1
+ENV SWOOLE_VERSION=4.1.2
 #add docker-machine
-ENV DOCKER_MACHINE_VERSION=0.14.0
+ENV DOCKER_MACHINE_VERSION=0.15.0
 
 RUN apt update \
 && apt install -y git zip \

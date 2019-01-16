@@ -17,7 +17,5 @@ RUN apt update \
 && cp ../tests/_ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
 && cd ../../ \
 && rm -r cphalcon \
-&& docker-php-ext-enable phalcon \
 && apt clean \
-&& rm -rf /var/lib/apt/lists/* \
-&& pecl clear-cache
+&& rm -rf /var/lib/apt/lists/*

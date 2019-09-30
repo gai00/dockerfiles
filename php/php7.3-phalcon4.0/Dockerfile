@@ -14,7 +14,7 @@ RUN apt update \
 && git clone --depth=1 --single-branch "git://github.com/phalcon/cphalcon.git" \
 && cd cphalcon/build \
 && ./install \
-&& cp ../tests/_ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
+&& cp ../.ci/phalcon.ini $(php-config --configure-options | grep -o "with-config-file-scan-dir=\([^ ]*\)" | awk -F'=' '{print $2}') \
 && cd ../../ \
 && rm -r cphalcon \
 && apt clean \

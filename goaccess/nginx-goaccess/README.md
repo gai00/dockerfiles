@@ -14,14 +14,17 @@ version: "3.7"
 
 services:
   goaccess:
-    image: gai00/dockerfiles:nginx-goaccess
+    image: test:nginx-goaccess
+    # entrypoint: ["bash"]
     ports:
       - 8080:80
-    # I don't know why without this, will show goaccess --help
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      # x-forwarded-for
+      # - "GOACCESS_LOGFORMAT=%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" \"%h,|\" \"%T\""
+      # - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y"
       - GOACCESS_TARGET=services/dev-markdown_nginx
       - GOACCESS_WSURL=ws://localhost:8080
     deploy:

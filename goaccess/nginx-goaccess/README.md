@@ -24,9 +24,7 @@ services:
       # goaccess --db-path default value
       # - /tmp/goaccess:/tmp/goaccess
     environment:
-      # - "GOACCESS_LOGFORMAT=%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" \"%h,|\" %T"
-      # - "GOACCESS_LOGFORMAT=%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" \"~h,|\" %T %^"
-      - "GOACCESS_LOGFORMAT=%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" ~h{,\"} %T %^"
+      - "GOACCESS_LOGFORMAT='%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" \"%h,|\" %T '"
       # - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y"
       - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y --keep-db-files --load-from-disk"
       - GOACCESS_TARGET=services/test_nginx

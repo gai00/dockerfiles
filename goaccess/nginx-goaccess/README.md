@@ -26,7 +26,7 @@ services:
     environment:
       - "GOACCESS_LOGFORMAT='%^ %^[%d:%t %^] \"%r\" %s %b \"%R\" \"%u\" \"%h,|\" %T '"
       # - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y"
-      - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y --keep-db-files --load-from-disk"
+      - "GOACCESS_ARGS=--time-format %T --date-format %d/%b/%Y --keep-db-files --load-from-disk --db-path /tmp/goaccess"
       - GOACCESS_TARGET=services/test_nginx
       - GOACCESS_WSURL=ws://localhost:8080
     deploy:

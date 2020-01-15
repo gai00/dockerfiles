@@ -3,6 +3,8 @@ nohup nginx -g "daemon on;" > /dev/null
 
 mkfifo -m 644 /tmp/goaccess.fifo
 
+sleep 1
+
 # default data wait for tail
 curl -s --unix-socket /var/run/docker.sock \
 "http://v1.40/$GOACCESS_TARGET/logs?stdout=1&tail=10" \
@@ -16,6 +18,8 @@ tail -f /tmp/goaccess.fifo \
 --ws-url $GOACCESS_WSURL/ws \
 -o /usr/share/nginx/html/index.html \
 --real-time-html &
+
+sleep 1
 
 while :
 do

@@ -5,11 +5,11 @@ mkfifo -m 644 /tmp/goaccess.fifo
 
 # default data wait for tail
 curl -s --unix-socket /var/run/docker.sock \
-"http://v1.40/$GOACCESS_TARGET/logs?stdout=1&tail=1" \
+"http://v1.40/$GOACCESS_TARGET/logs?stdout=1&tail=10" \
 --output - \
 | cut -b 9- > /tmp/goaccess.fifo &
 
-sleep 2
+sleep 3
 
 tail -f /tmp/goaccess.fifo \
 | goaccess --log-format "$GOACCESS_LOGFORMAT" $GOACCESS_ARGS \

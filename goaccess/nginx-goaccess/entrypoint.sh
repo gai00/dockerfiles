@@ -1,7 +1,9 @@
 #!/bin/bash
-nginx -g "daemon on;"
+nohup nginx -g "daemon on;" > /dev/null
 
 mkfifo -m 644 /tmp/goaccess.fifo
+
+sleep 1
 
 # default data wait for tail
 curl -s --unix-socket /var/run/docker.sock \
@@ -9,11 +11,15 @@ curl -s --unix-socket /var/run/docker.sock \
 --output - \
 | cut -b 9- > /tmp/goaccess.fifo &
 
+sleep 1
+
 tail -f /tmp/goaccess.fifo \
 | goaccess --log-format "$GOACCESS_LOGFORMAT" $GOACCESS_ARGS \
 --ws-url $GOACCESS_WSURL/ws \
 -o /usr/share/nginx/html/index.html \
 --real-time-html &
+
+sleep 1
 
 while :
 do

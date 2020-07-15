@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ENV BROOK_VERSION=v20180909
+ENV BROOK_VERSION=v20200701
 
 RUN apt update && apt install -y curl \
   && mkdir /app \

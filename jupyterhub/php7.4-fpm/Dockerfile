@@ -25,3 +25,8 @@ RUN cd ~ \
 && rm ./jupyter-php-installer.phar \
 && apt clean \
 && rm -rf /var/lib/apt/lists/*
+
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+EXPOSE 8000
+ENTRYPOINT ["/docker-entrypoint.sh"]

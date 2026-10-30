@@ -1,0 +1,47 @@
+{
+	# 關閉自動 HTTPS，以配合本地開發與外部反向代理
+	auto_https off
+
+	frankenphp {
+	}
+	# 啟用 Mercure 模組
+	order mercure after encode
+}
+
+:80 {
+	# 防止瀏覽器因存取特定路徑而自動在同網域附加 HTTP Basic Auth 標頭，
+	# 導致 Mercure 報錯：Authorization error: invalid "Authorization" HTTP header (400 Bad Request)
+	@mercure_non_bearer {
+		path /.well-known/mercure*
+		header Authorization *
+		not header Authorization Bearer*
+	}
+	request_header @mercure_non_bearer -Authorization
+
+	# 啟用 Mercure Hub
+	mercure {
+		# 使用新版 Bolt 語法 (持久化儲存於 data/mercure.db)
+		transport bolt /var/www/html/data/mercure.db
+		# 啟用相容模式以支援 publisher_jwt / subscriber_jwt 與舊版 JWT payload (無 iss/aud)
+		protocol_version_compatibility 8
+		# 從環境變數讀取 JWT Key
+		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY}
+		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY}
+		# 支援訂閱查詢與 CORS
+		# anonymous
+		subscriptions
+		cors_origins *
+	}
+
+	# 網站公開目錄 (對應 public 目錄)
+	root * /var/www/html/public
+
+	# 啟用現代化壓縮
+	encode zstd gzip
+
+	# 標準 PHP 伺服器通用行為：
+	# 1. 優先判斷靜態檔案是否存在，若存在則直接由 Caddy 高效能輸出 (css, js, images 等)
+	# 2. 若檔案不存在 (動態路由)，自動轉交 index.php 處理
+	# 完全不需寫死任何 Module 名稱，適用所有符合 public 入口架構的網站
+	php_server
+}
